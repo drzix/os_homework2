@@ -6,7 +6,10 @@
 #define NR_THREAD 4
 
 struct thread_args {
+        /* 입력을 받을 해시테이블*/
         struct htable *table;
+
+        /* input#.txt 의 번호 */
         int fileno;
 };
 
@@ -31,6 +34,11 @@ static double TimeSpecToSeconds(struct timespec *ts)
         return (double)ts->tv_sec + (double)ts->tv_nsec / (double)1e9;
 }
 
+/**
+* read_input_into_htable - 스레드마다 해시테이블 입력을 할당
+*
+* 입력을 하는 동안의 시간을 측정한다
+*/
 static void read_input_into_htable(struct htable *table)
 {
         int i;
@@ -58,6 +66,9 @@ static void read_input_into_htable(struct htable *table)
         printf("%lf\n", elapsedSec);
 }
 
+/**
+* _read_input_into_htable - 파일을 읽어와 키 밸류 쌍을 해시테이블에 삽입
+*/
 static void *_read_input_into_htable(void *t_args)
 {
         char path[20];

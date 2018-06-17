@@ -20,6 +20,12 @@ struct htable {
         struct bucket bkt[NR_BUCKET];
 };
 
+/**
+* init_htable - 해시테이블 초기화
+*
+* 버킷마다의 리스트를 초기화해주고
+* 버킷마다의 뮤텍스를 초기화해준다
+*/
 static inline void init_htable(struct htable *table)
 {
         int i;
@@ -40,12 +46,19 @@ static inline int get_hash_idx(key_t key)
 struct item_struct {
         key_t key;
         value_t val;
+
+        /* 버킷 리스트 노드  */
         struct list_node bkt_node_entry;
-        int bkt_last_pos; // updated when only searched
+
+        /* 검색되는 시점에 버킷리스트에서의 위치 */
+        int bkt_last_pos;
 };
 
 struct htable_search_result {
+        /* 검색된 데이터의 버킷 인덱스 */
         int bkt_idx;
+
+        /* 검색된 데이터의 버킷리스트에서의 위치 */
         int bkt_list_pos;
 };
 
