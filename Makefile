@@ -1,5 +1,5 @@
 OBJS = main.o htable.o
-TARGET = OS2_12131603
+TARGET = os2
 
 .SUFFIXES : .c .o
 
